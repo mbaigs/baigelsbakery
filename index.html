@@ -97,7 +97,7 @@
 
         .recipe-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -702,4 +702,140 @@
                     "Preheat oven to 275°F",
                     "Beat eggs until frothy",
                     "Add sugar super slowly",
-                    "Add salt and beat until peaks form, then
+                    "Add salt and beat until peaks form, then add vanilla",
+                    "Beat for one second, then sift cocoa powder into bowl and add chocolate chips",
+                    "Fold in until incorporated",
+                    "Drop around 1 tbsp size clumps onto baking sheet covered in parchment paper",
+                    "Cook 25-40 min until firm on outside (usually around 35 min)",
+                    "Let them cool"
+                ]
+            },
+            {
+                title: "Financier",
+                category: "cakes",
+                icon: "🧈",
+                ingredients: [
+                    "½ cup (115g) unsalted butter",
+                    "90g powdered sugar",
+                    "60g granulated sugar",
+                    "125g almond flour",
+                    "45g all purpose flour",
+                    "pinch salt",
+                    "4 large egg white room temp",
+                    "2 tsp vanilla extract",
+                    "Optional: ¼ tsp almond, lemon or orange extract",
+                    "Optional: orange or lemon zest"
+                ],
+                directions: [
+                    "Place butter into saucepan and brown over medium heat for around 8 min, let cool to room temp",
+                    "Preheat oven to 350°F and grease wells of a mini muffin pan",
+                    "In large mixing bowl, sift the dry ingredients first then whisk both sugars, both flours and salt",
+                    "Add in the egg white, vanilla and brown butter and whisk until just combined",
+                    "Put batter into plastic wrap and chill for 1 hour to one week",
+                    "Divide batter into mini muffin tins so it's about ¾ full",
+                    "Bake for 15-20 min until edges are golden and toothpick comes out clean",
+                    "Let cool in pan for 10 min and then cool completely on a wire rack"
+                ],
+                notes: "Can keep in airtight container for up to a week. Optional extracts: almond, lemon or orange"
+            }
+        ];
+
+        const recipeGrid = document.getElementById('recipeGrid');
+        const searchBox = document.getElementById('searchBox');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const recipeDetails = document.getElementById('recipeDetails');
+        const closeBtn = document.getElementById('closeBtn');
+        const noResults = document.getElementById('noResults');
+
+        let currentFilter = 'all';
+
+        function displayRecipes(recipesToShow) {
+            recipeGrid.innerHTML = '';
+            
+            if (recipesToShow.length === 0) {
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            
+            recipesToShow.forEach((recipe, index) => {
+                const card = document.createElement('div');
+                card.className = 'recipe-card';
+                card.innerHTML = `
+                    <div class="recipe-image">${recipe.icon}</div>
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">${recipe.title}</h3>
+                        <span class="recipe-category">${recipe.category}</span>
+                    </div>
+                `;
+                card.addEventListener('click', () => showRecipeDetails(recipe));
+                recipeGrid.appendChild(card);
+            });
+        }
+
+        function showRecipeDetails(recipe) {
+            document.getElementById('modalTitle').textContent = recipe.title;
+            
+            let ingredientsHTML = '<h3>Ingredients</h3><ul>';
+            recipe.ingredients.forEach(ingredient => {
+                ingredientsHTML += `<li>${ingredient}</li>`;
+            });
+            ingredientsHTML += '</ul>';
+            
+            let directionsHTML = '<h3>Directions</h3><ol>';
+            recipe.directions.forEach(direction => {
+                directionsHTML += `<li>${direction}</li>`;
+            });
+            directionsHTML += '</ol>';
+            
+            let notesHTML = '';
+            if (recipe.notes) {
+                notesHTML = `<div class="note"><strong>Notes:</strong> ${recipe.notes}</div>`;
+            }
+            
+            document.getElementById('modalBody').innerHTML = ingredientsHTML + directionsHTML + notesHTML;
+            recipeDetails.classList.add('active');
+        }
+
+        closeBtn.addEventListener('click', () => {
+            recipeDetails.classList.remove('active');
+        });
+
+        recipeDetails.addEventListener('click', (e) => {
+            if (e.target === recipeDetails) {
+                recipeDetails.classList.remove('active');
+            }
+        });
+
+        searchBox.addEventListener('input', (e) => {
+            filterRecipes();
+        });
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                currentFilter = button.dataset.category;
+                filterRecipes();
+            });
+        });
+
+        function filterRecipes() {
+            const searchTerm = searchBox.value.toLowerCase();
+            
+            let filtered = recipes.filter(recipe => {
+                const matchesSearch = recipe.title.toLowerCase().includes(searchTerm) ||
+                                    recipe.ingredients.some(ing => ing.toLowerCase().includes(searchTerm));
+                const matchesCategory = currentFilter === 'all' || recipe.category === currentFilter;
+                
+                return matchesSearch && matchesCategory;
+            });
+            
+            displayRecipes(filtered);
+        }
+
+        displayRecipes(recipes);
+    </script>
+</body>
+</html>
