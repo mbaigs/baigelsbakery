@@ -331,9 +331,9 @@
         <button class="filter-btn active" data-category="all">All Recipes</button>
         <button class="filter-btn" data-category="cookies">Cookies</button>
         <button class="filter-btn" data-category="cakes">Cakes & Cupcakes</button>
-        <button class="filter-btn" data-category="desserts">Desserts</button>
+        <button class="filter-btn" data-category="misc desserts">Misc Desserts</button>
         <button class="filter-btn" data-category="breads">Breads & Bagels</button>
-        <button class="filter-btn" data-category="meringues">Meringues</button>
+        <button class="filter-btn" data-category="cooking">Cooking</button>
     </div>
 
     <div class="container">
@@ -388,7 +388,7 @@
             },
             {
                 title: "Malva Pudding",
-                category: "desserts",
+                category: ["misc desserts", "cakes"],
                 icon: "🍮",
                 ingredients: [
                     "1 cup (125g) flour",
@@ -418,15 +418,29 @@
             },
             {
                 title: "Lemon Bars",
-                category: "desserts",
+                category: "misc desserts",
                 icon: "🍋",
                 ingredients: [
-                    "Shortbread:", 
-                        "¾ cup (170g) unsalted butter, 2 cups (250g) all purpose flour, ½ cup (110g) packed light brown sugar, ½ tsp salt",
-                    "Filling:",
-                    "4 large eggs, 1 ½ cup (300g) granulated sugar, ¾ cup (180ml) fresh lemon juice, ⅓ cup (42g) all purpose flour",
-                    "3 tablespoon confectioners sugar (optional)"
-                ],
+        {
+            section: "Shortbread",
+            items: [
+                "¾ cup (170g) unsalted butter",
+                "2 cups (250g) all purpose flour",
+                "½ cup (110g) packed light brown sugar",
+                "½ tsp salt"
+            ]
+        },
+        {
+            section: "Filling",
+            items: [
+                "4 large eggs",
+                "1 ½ cup (300g) granulated sugar",
+                "¾ cup (180ml) fresh lemon juice",
+                "⅓ cup (42g) all purpose flour",
+                "3 tablespoon confectioners sugar (optional)"
+            ]
+        }
+    ],
                 directions: [
                     "Preheat oven to 350°F. Cut butter in ½ inch pieces",
                     "Food process butter, flour, brown sugar, and salt until begins to form small lumps",
@@ -445,9 +459,32 @@
                 category: "cakes",
                 icon: "🧁",
                 ingredients: [
-                    "Cupcakes: ½ cup (115g) unsalted butter softened, 1 cup (200g) granulated sugar, 2 large eggs room temp, 1 ½ tsp vanilla extract, 1 ½ cups (190g) all purpose flour, 2 tsp baking powder, ½ tsp salt, ½ cup (120ml) whole milk, 1 ½ tbsp lemon zest, ⅓ cup (80ml) fresh lemon juice",
-                    "Frosting: 2 cups (300g) berries, 1 Tbsp sugar, 1 cup (225g) unsalted butter room temperature, 2-3 cups (250-375g) powdered sugar sifted, 1 tsp vanilla"
-                ],
+    {
+        section: "Cupcakes",
+        items: [
+            "½ cup (115g) unsalted butter, softened",
+            "1 cup (200g) granulated sugar",
+            "2 large eggs, room temperature",
+            "1 ½ tsp vanilla extract",
+            "1 ½ cups (190g) all-purpose flour",
+            "2 tsp baking powder",
+            "½ tsp salt",
+            "½ cup (120ml) whole milk",
+            "1 ½ tbsp lemon zest",
+            "⅓ cup (80ml) fresh lemon juice"
+        ]
+    },
+    {
+        section: "Frosting",
+        items: [
+            "2 cups (300g) berries",
+            "1 tbsp sugar",
+            "1 cup (225g) unsalted butter, room temperature",
+            "2–3 cups (250–375g) powdered sugar, sifted",
+            "1 tsp vanilla"
+        ]
+    }
+],
                 directions: [
                     "Preheat oven to 350°F. Line 12 cup muffin pan with cupcake liners",
                     "Beat butter and sugar together on medium high speed until creamed (around 2 min)",
@@ -533,7 +570,7 @@
             },
             {
                 title: "Superiority Burger Banana Bread",
-                category: "breads",
+                category: ["breads", "cakes"],
                 icon: "🍞",
                 ingredients: [
                     "1 ¼ cups (155g) all purpose flour",
@@ -562,7 +599,7 @@
             },
             {
                 title: "Lava Cakes",
-                category: "desserts",
+                category: ["misc desserts", "cakes"],
                 icon: "🌋",
                 ingredients: [
                     "1/4 cup (50g) granulated sugar",
@@ -587,7 +624,7 @@
             },
             {
                 title: "Chocolate Meringue Cookies",
-                category: "meringues",
+                category: "cookies",
                 icon: "☁️",
                 ingredients: [
                     "6 ounces (170g) semisweet chocolate (best quality)",
@@ -609,7 +646,7 @@
             },
             {
                 title: "Pavlova",
-                category: "meringues",
+                category: "misc desserts",
                 icon: "🎂",
                 ingredients: [
                     "5 XL egg whites",
@@ -662,7 +699,7 @@
             },
             {
                 title: "Mochi for Cookie Stuffing",
-                category: "cookies",
+                category: ["cookies", "misc desserts"]
                 icon: "🥟",
                 ingredients: [
                     "80g (.35 cups) glutinous rice flour",
@@ -706,7 +743,7 @@
             },
             {
                 title: "Matcha Mochi Brownie",
-                category: "desserts",
+                category: ["misc desserts", "cakes"],
                 icon: "🍵",
                 ingredients: [
                     "1 cup (160g) mochiko flour",
@@ -727,7 +764,7 @@
             },
             {
                 title: "Taiwanese Pineapple Cake",
-                category: "cakes",
+                category: "misc desserts",
                 icon: "🍍",
                 ingredients: [
                     "Filling: 2 tbsp unsalted butter, 40 oz cans crushed pineapple, ¼ cup (50g) sugar, ½ cup (200g) maltose",
@@ -750,7 +787,7 @@
             },
             {
                 title: "Meringue Cookies with Mini Cookie Layer",
-                category: "meringues",
+                category: "cookies",
                 icon: "🍫",
                 ingredients: [
                     "3 egg white",
@@ -774,7 +811,7 @@
             },
             {
                 title: "Financier",
-                category: "cakes",
+                category: ["cookies", "misc desserts"],
                 icon: "🧈",
                 ingredients: [
                     "½ cup (115g) unsalted butter",
