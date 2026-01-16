@@ -271,6 +271,18 @@
             border-radius: 4px;
         }
 
+        .recipe-link {
+            color: #B4A7D6;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .recipe-link:hover {
+            color: #9080C0;
+        }
+
         footer {
             text-align: center;
             padding: 2rem;
@@ -596,7 +608,7 @@
                     "Scoop 4 tbsp pieces of dough (2\" between each cookie)",
                     "Bake 12-14 minutes until edges are set but middle very soft"
                 ],
-                notes: "Optional: melt down and freeze marshmallow and put it in middle, or add mochi filling"
+                notes: "Optional: melt down and freeze marshmallow and put it in middle, or add mochi filling. Pairs well with Mochi for Cookie Stuffing"
             },
             {
                 title: "Mochi for Cookie Stuffing",
@@ -616,7 +628,7 @@
                     "Let cool and then break it up into 10 pieces",
                     "Let cool completely before using"
                 ],
-                notes: "Can add ½ tsp matcha to the mochi"
+                notes: "Can add ½ tsp matcha to the mochi. Perfect filling for Matcha Cookies!""
             },
             {
                 title: "High Protein Bagels",
@@ -791,10 +803,32 @@
             
             let notesHTML = '';
             if (recipe.notes) {
-                notesHTML = `<div class="note"><strong>Notes:</strong> ${recipe.notes}</div>`;
+                // Convert recipe names into clickable links
+                let notesText = recipe.notes;
+                recipes.forEach(r => {
+                    if (r.title !== recipe.title && notesText.includes(r.title)) {
+                        notesText = notesText.replace(
+                            r.title, 
+                            `<span class="recipe-link" data-recipe="${r.title}">${r.title}</span>`
+                        );
+                    }
+                });
+                notesHTML = `<div class="note"><strong>Notes:</strong> ${notesText}</div>`;
             }
             
             document.getElementById('modalBody').innerHTML = ingredientsHTML + directionsHTML + notesHTML;
+            
+            // Add click handlers to recipe links
+            document.querySelectorAll('.recipe-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const recipeName = e.target.dataset.recipe;
+                    const linkedRecipe = recipes.find(r => r.title === recipeName);
+                    if (linkedRecipe) {
+                        showRecipeDetails(linkedRecipe);
+                    }
+                });
+            });
+            
             recipeDetails.classList.add('active');
         }
 
