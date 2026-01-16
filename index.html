@@ -1,1 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Micha(y)la’s Baking</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <h1>Micha(y)la’s Baking</h1>
+      <p>Recipes and bakes I’ve loved making.</p>
+
+      <nav class="nav">
+        <a href="#recipes">Recipes</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#about">About</a>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section id="recipes">
+        <h2>Recipes</h2>
+
+        <article class="card">
+          <h3>Fudgy Brownies</h3>
+          <p class="meta">Prep: 15 min • Bake: 25 min • Yield: 16 squares</p>
+
+          <img
+            class="hero"
+            src="images/brownies.jpg"
+            alt="Fudgy brownies on a plate"
+          />
+
+          <h4>Ingredients</h4>
+          <ul>
+            <li>1/2 cup (113g) butter</li>
+            <li>1 cup (200g) sugar</li>
+            <li>2 eggs</li>
+            <li>1/2 cup (60g) cocoa powder</li>
+            <li>1/2 cup (65g) flour</li>
+            <li>Pinch of salt</li>
+          </ul>
+
+          <h4>Steps</h4>
+          <ol>
+            <li>Preheat oven to 350°F / 175°C.</li>
+            <li>Melt butter, whisk in sugar, then eggs.</li>
+            <li>Stir in cocoa, flour, and salt.</li>
+            <li>Bake 22–28 minutes. Cool, slice, enjoy.</li>
+          </ol>
+        </article>
+      </section>
+
+      <section id="gallery">
+        <h2>Gallery</h2>
+        <div class="grid">
+          <figure>
+            <img src="images/cookies.jpg" alt="Chocolate chip cookies" />
+            <figcaption>Chocolate chip cookies</figcaption>
+          </figure>
+          <figure>
+            <img src="images/sourdough.jpg" alt="Sourdough loaf" />
+            <figcaption>Sourdough</figcaption>
+          </figure>
+          <figure>
+            <img src="images/cake.jpg" alt="Layer cake" />
+            <figcaption>Layer cake</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="about">
+        <h2>About</h2>
+        <p>
+          Hi! I’m Micha(y)la. This is where I share my bakes, notes, and recipes.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="year"></span> Micha(y)la’s Baking</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
 
