@@ -1,97 +1,841 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Baigel's Bakery</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Baking Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <body>
-    <header class="site-header">
-      <h1>Baigel's Bakery</h1>
-      <p>Recipes and bakes I would make again!</p>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fafafa;
+        }
 
-      <nav class="nav">
-        <a href="#recipes">Recipes</a>
-        <!-- <a href="#gallery">Gallery</a> -->
-        <a href="#about">About</a>
-      </nav>
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: -30px auto 0;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: box-shadow 0.3s;
+        }
+
+        .search-box:focus {
+            outline: none;
+            box-shadow: 0 6px 30px rgba(0,0,0,0.2);
+        }
+
+        .filter-buttons {
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .recipe-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: rgba(0,0,0,0.1);
+        }
+
+        .recipe-content {
+            padding: 1.5rem;
+        }
+
+        .recipe-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+        }
+
+        .recipe-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: #f0f4ff;
+            color: #667eea;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .recipe-details {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .recipe-details.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .recipe-modal {
+            background: white;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-body h3 {
+            color: #667eea;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .modal-body h3:first-child {
+            margin-top: 0;
+        }
+
+        .modal-body ul {
+            list-style-position: inside;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-body li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+        }
+
+        .modal-body ol {
+            list-style-position: inside;
+            counter-reset: step-counter;
+            list-style: none;
+        }
+
+        .modal-body ol li {
+            counter-increment: step-counter;
+            margin-bottom: 1rem;
+            padding-left: 2.5rem;
+            position: relative;
+        }
+
+        .modal-body ol li:before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .note {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #2d3748;
+            color: white;
+            margin-top: 4rem;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #718096;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .recipe-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .recipe-details {
+                padding: 1rem;
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Baking Collection</h1>
+        <p>Homemade recipes made with love</p>
     </header>
 
-    <main class="container">
-      <section id="recipes">
-        <h2>Recipes</h2>
+    <div class="search-container">
+        <input type="text" class="search-box" id="searchBox" placeholder="Search recipes...">
+    </div>
 
-        <article class="card">
-          <h3>Bakery Style Cookies</h3>
-          <p class="meta">Prep: 15 min • Bake: 11-13 min • Yield: no clue </p>
+    <div class="filter-buttons">
+        <button class="filter-btn active" data-category="all">All Recipes</button>
+        <button class="filter-btn" data-category="cookies">Cookies</button>
+        <button class="filter-btn" data-category="cakes">Cakes & Cupcakes</button>
+        <button class="filter-btn" data-category="desserts">Desserts</button>
+        <button class="filter-btn" data-category="breads">Breads & Bagels</button>
+        <button class="filter-btn" data-category="meringues">Meringues</button>
+    </div>
 
-          <img
-            class="hero"
-            src="images/brownies.jpg"
-            alt="Big cookies on a plate"
-          />
-
-          <h4>Ingredients</h4>
-          <ul>
-            <li>1 1/2 cup (180g) flour</li>
-            <li> 1/2 tsp baking soda</li>
-            <li>1/2 tsp fine sea salt</li>
-            <li>1 stick of butter (113g) room temp</li>
-            <li>1/4 cup (50g) granulated sugar</li>
-            <li>1/2 cup + 2 tbsp (130g) lightly packed light brown sugar</li>
-            <li>1 egg room temp</li>
-            <li>1 tsp vanilla</li>
-            <li>1 cup semi-sweet chocolate chips (I like to cut up 70% lindt bars)</li>
-            <li>optional 1/2 tsp cornstarch per cup of flour for chewier thicker cookies</li>
-          </ul>
-
-          <h4>Instructions</h4>
-          <ol>
-            <li>Combine flour, baking soda, salt, and cornstarch if using</li>
-            <li>Beat the butter with both sugars until creamy (around 2 minutes) with electric mixer</li>
-            <li>Add in vanilla and eggs and beat until just combined</li>
-            <li>Stir in flour mixture and chocolate chips</li>
-            <li>Wrap dough in plastic rap and refrigerate for 24-72 hours to let flavors develop</li>
-            <li>Preheat oven to 350°F / 175°C.</li>
-            <li>Place cookie douch lumps on parchment paper (do not grease)and bake for 11-13 min</li>
-            <li>Optional: Cover cookues with some flaky sea salt before baking</li>
-          </ol>
-        </article>
-      </section>
-
-     <!-- <section id="gallery">
-        <h2>Gallery</h2>
-        <div class="grid">
-          <figure>
-            <img src="images/cookies.jpg" alt="Chocolate chip cookies" />
-            <figcaption>Chocolate chip cookies</figcaption>
-          </figure>
-          <figure>
-            <img src="images/sourdough.jpg" alt="Sourdough loaf" />
-            <figcaption>Sourdough</figcaption>
-          </figure>
-          <figure>
-            <img src="images/cake.jpg" alt="Layer cake" />
-            <figcaption>Layer cake</figcaption>
-          </figure>
+    <div class="container">
+        <div class="recipe-grid" id="recipeGrid"></div>
+        <div class="no-results" id="noResults" style="display: none;">
+            No recipes found. Try a different search term!
         </div>
-      </section> -->
+    </div>
 
-      <section id="about">
-        <h2>About</h2>
-        <p>
-          Hi! I’m Baigel. This is where I'm learning how to code while I share my baking recipes and failures.
-        </p>
-      </section>
-    </main>
+    <div class="recipe-details" id="recipeDetails">
+        <div class="recipe-modal">
+            <div class="modal-header">
+                <button class="close-btn" id="closeBtn">&times;</button>
+                <h2 id="modalTitle"></h2>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
 
-    <footer class="site-footer">
-      <p>© <span id="year"></span> Baigel's Bakery </p>
+    <footer>
+        <p>&copy; 2026 My Baking Collection. All recipes made with ❤️</p>
     </footer>
 
-    <script src="script.js"></script>
-  </body>
-</html>
+    <script>
+        const recipes = [
+            {
+                title: "Bakery Style Cookies",
+                category: "cookies",
+                icon: "🍪",
+                ingredients: [
+                    "1.5 cups of flour",
+                    "½ tsp baking soda",
+                    "½ tsp fine sea salt",
+                    "1 stick of butter, at room temp",
+                    "¼ cup granulated sugar",
+                    "½ cup and 2 tablespoons of lightly packed light brown sugar",
+                    "1 tsp vanilla",
+                    "1 egg room temp",
+                    "1 cup semi sweet chocolate chips"
+                ],
+                directions: [
+                    "Combine flour, baking soda and salt",
+                    "Beat butter and two sugars until creamy (about 2 min) with electric mixer",
+                    "Add vanilla and eggs",
+                    "Stir in flour and chocolate chips",
+                    "Wrap dough in plastic wrap and refrigerate for 24-72 hours",
+                    "Set oven to 350 degrees",
+                    "Bake for 11-13 min (on parchment paper, do not grease it with butter)",
+                    "Optional: cover cookies with some salt before baking"
+                ],
+                notes: "Can try ½ tsp cornstarch per cup of flour for chewier thicker cookies. Can also melt ½ cup sugar over stop top and let cool over baking sheet, chop up and throw in the dough as some makeshift caramel."
+            },
+            {
+                title: "Malva Pudding",
+                category: "desserts",
+                icon: "🍮",
+                ingredients: [
+                    "1 cup flour",
+                    "1 ½ tsp baking powder",
+                    "¾ tsp baking soda",
+                    "1 cup sugar",
+                    "2 large eggs, room temp",
+                    "Pinch of salt",
+                    "¼ cup strained apricot jam",
+                    "1 ½ tbsp melted unsalted butter",
+                    "½ tsp apple cider or white vinegar",
+                    "1 cup milk",
+                    "Filling: ¾ Cup heavy cream, ¾ cup sugar, ½ cup unsalted butter, ¼ cup milk"
+                ],
+                directions: [
+                    "Preheat oven to 375°F",
+                    "In small bowl, whisk flour, baking powder, baking soda",
+                    "In a medium bowl beat the sugar, eggs and salt on medium speed until the batter is thick and pourable (about 2 min). Reduce speed to low and beat in jam until incorporated",
+                    "Mix in melted butter and vinegar",
+                    "Add one third of the milk, then half of the flour mixture, then another third of milk, then the rest of the flour, then the rest of the milk and stir until smooth",
+                    "Pour the batter into greased pan or cake tins",
+                    "Cook for 35-40 minutes or until deeply bronzed across top",
+                    "When cake has approx 10 minutes left, heat sugar, butter and milk for filling, whisking gently until butter is melted. Let cool and add cream",
+                    "Poke many holes throughout the cake and pour filling over evenly"
+                ],
+                notes: "Can be made into 8 small cake tins, or one big dish around 8x13. Try replacing sugar with dark brown sugar next time."
+            },
+            {
+                title: "Lemon Bars",
+                category: "desserts",
+                icon: "🍋",
+                ingredients: [
+                    "Shortbread: ¾ cup unsalted butter, 2 cups all purpose flour, ½ cup packed light brown sugar, ½ tsp salt",
+                    "Filling: 4 large eggs, 1 ½ cup granulated sugar, ¾ cup fresh lemon juice, ⅓ cup all purpose flour",
+                    "3 tablespoon confectioners sugar (optional)"
+                ],
+                directions: [
+                    "Preheat oven to 350°F. Cut butter in ½ inch pieces",
+                    "Food process butter, flour, brown sugar, and salt until begins to form small lumps",
+                    "Sprinkle into 13 x 9 x 2 inch baking pan and press evenly with metal spatula",
+                    "Bake until golden, around 20 min",
+                    "Reduce oven to 300°F",
+                    "Whisk eggs and granulated sugar until combined well",
+                    "Stir in lemon juice and flour",
+                    "Pour lemon mix over hot shortbread",
+                    "Bake in middle of oven until set, around 30 minutes",
+                    "Cool completely and cut"
+                ]
+            },
+            {
+                title: "Lemon Cupcakes with Berry Buttercream",
+                category: "cakes",
+                icon: "🧁",
+                ingredients: [
+                    "Cupcakes: ½ cup unsalted butter softened, 1 cup granulated sugar, 2 large eggs room temp, 1 ½ tsp vanilla extract, 1 ½ cups all purpose flour, 2 tsp baking powder, ½ tsp salt, ½ cup whole milk, 1 ½ tbsp lemon zest, ⅓ cup fresh lemon juice",
+                    "Frosting: 2 cups berries, 1 Tbsp sugar, 1 cup unsalted butter room temperature, 2-3 cups powdered sugar sifted, 1 tsp vanilla"
+                ],
+                directions: [
+                    "Preheat oven to 350°F. Line 12 cup muffin pan with cupcake liners",
+                    "Beat butter and sugar together on medium high speed until creamed (around 2 min)",
+                    "Add eggs and vanilla extract, beat on medium high speed until combined (about 1 minute)",
+                    "Whisk flour, baking powder and salt together in medium bowl",
+                    "Pour dry ingredients into the wet and mix on low speed. Slowly add milk, lemon juice and lemon zest",
+                    "Once combined stop mixing, do not over mix",
+                    "Spoon evenly into cupcakes, bake for 18-22 minutes",
+                    "For frosting: Cook berries and sugar together, press through sieve and reduce to about 1/3 cup liquid. Let cool",
+                    "Cream butter with cooled berries and 1 cup powdered sugar. Add vanilla and remaining sugar to desired consistency"
+                ]
+            },
+            {
+                title: "Banana Bread",
+                category: "breads",
+                icon: "🍌",
+                ingredients: [
+                    "4 large bananas, mashed",
+                    "2 eggs",
+                    "2 cups flour",
+                    "1 ¼ cup sugar",
+                    "½ cup vegetable oil",
+                    "¼ cup oat milk",
+                    "1 tsp baking soda",
+                    "½ tsp baking powder",
+                    "1 tsp vanilla"
+                ],
+                directions: [
+                    "Combine oil, eggs, sugar, milk, vanilla and mashed bananas",
+                    "Add baking soda, baking powder and flour",
+                    "Combine well for 2-3 min",
+                    "Pour into a greased loaf pan and bake in preheated 325°F oven for 1 hour and 20 minutes"
+                ],
+                notes: "If using dark pan try dropping oven 25 degrees to get more even bake"
+            },
+            {
+                title: "Superiority Burger Banana Bread",
+                category: "breads",
+                icon: "🍞",
+                ingredients: [
+                    "1 ¼ cups all purpose flour",
+                    "1 tsp baking soda",
+                    "1 tsp kosher salt",
+                    "1 tsp ground cinnamon",
+                    "1 ½ cups mashed bananas",
+                    "1 whole banana roughly chopped",
+                    "¾ cup cane sugar",
+                    "½ cup sour cream",
+                    "½ cup extra virgin olive oil",
+                    "1 tbsp pure vanilla extract",
+                    "brown sugar for topping"
+                ],
+                directions: [
+                    "Preheat oven to 350°F. Lightly grease a 9 inch by 5 inch loaf pan",
+                    "Mix flour, baking soda, salt, cinnamon in a large bowl, set aside",
+                    "Mix mashed banana, sugar, sour cream, olive oil, and vanilla",
+                    "Pour the wet ingredients into the bowl with the flour",
+                    "Gently mix everything and sprinkle in the chopped banana while mixing until just combined",
+                    "Pour the batter into the loaf pan and sprinkle with brown sugar",
+                    "Bake for 25-35 min until a toothpick inserted comes out clean",
+                    "Let cool, then heat a small skillet over medium high heat with a tiny bit of oil",
+                    "Griddle bread on both sides until golden brown and warmed through"
+                ]
+            },
+            {
+                title: "Lava Cakes",
+                category: "desserts",
+                icon: "🌋",
+                ingredients: [
+                    "1/4 cup granulated sugar",
+                    "½ tablespoon cornstarch",
+                    "3 ounces bittersweet chocolate (around 70%)",
+                    "¼ cup unsalted butter",
+                    "1 egg",
+                    "1 egg yolk",
+                    "½ tsp vanilla extract"
+                ],
+                directions: [
+                    "Preheat oven to 425°F and put oven rack in upper middle position",
+                    "Grease 3 small ramekins, or 2 large, with butter then coat with granulated sugar, tap out excess",
+                    "Whisk together sugar and cornstarch",
+                    "Melt butter and chocolate together in double boiler",
+                    "Add chocolate mix to sugar mix and whisk to combine",
+                    "Add eggs, egg yolk and vanilla and whisk all together",
+                    "Divide batter between ramekins and put on baking sheet",
+                    "Bake until tops are set and look shiny, around 12 minutes",
+                    "Let cool for 2 minutes then run pairing knife around edges, invert onto a plate and serve"
+                ]
+            },
+            {
+                title: "Chocolate Meringue Cookies",
+                category: "meringues",
+                icon: "☁️",
+                ingredients: [
+                    "6 ounces semisweet chocolate (best quality)",
+                    "2 large egg whites, at room temperature",
+                    "⅛ teaspoon cream of tartar",
+                    "½ teaspoon vanilla extract",
+                    "Pinch salt",
+                    "¼ cup sugar",
+                    "½ cup milk chocolate chips"
+                ],
+                directions: [
+                    "Set oven to 350°F and put racks in the middle. Line baking sheets with parchment paper",
+                    "Melt chocolate in double boiler until mostly melted and continue mixing until smooth. Set aside",
+                    "In large bowl, beat the eggs, cream of tartar, vanilla and salt until soft peaks",
+                    "Gradually add sugar until stiff peaks",
+                    "Pour warm chocolate and chocolate chips into bowl and fold until uniform batter",
+                    "Bake for 8-10 minutes until cookies look dry"
+                ]
+            },
+            {
+                title: "Pavlova",
+                category: "meringues",
+                icon: "🎂",
+                ingredients: [
+                    "5 XL egg whites",
+                    "½ tsp cream of tartar",
+                    "1 ½ cups superfine sugar",
+                    "1 tsp vanilla",
+                    "1 tbsp vinegar (white or apple cider)",
+                    "1 tbsp corn starch"
+                ],
+                directions: [
+                    "Preheat oven to 400°F",
+                    "Beat egg whites with cream of tartar until stiff",
+                    "Gradually add sugar and beat 5-7 min until glossy",
+                    "Add vanilla, vinegar and corn starch and beat until mixed",
+                    "Spray 8 by 13 inch oval pan",
+                    "Fill with 1 inch of batter on bottom and 1 inch thick wall",
+                    "Put mixture in oven and turn it down to 250°F immediately",
+                    "Bake around 1.5 hours until crispy on outside",
+                    "Once done can decorate and stuff with various custards and fruits"
+                ]
+            },
+            {
+                title: "Matcha Cookies",
+                category: "cookies",
+                icon: "🍵",
+                ingredients: [
+                    "180g flour (1.5 cup)",
+                    "2 tbsp matcha powder",
+                    "½ tsp baking soda",
+                    "½ tsp baking powder",
+                    "½ tsp salt",
+                    "115g unsalted butter (½ cup)",
+                    "150g granulated sugar (¾ cup)",
+                    "1 large egg",
+                    "1 tsp vanilla extract",
+                    "100g white chocolate (optional)"
+                ],
+                directions: [
+                    "Preheat oven to 350°F. Line baking sheet with parchment paper",
+                    "Mix dry ingredients: stir flour, matcha powder, baking powder, baking soda, salt",
+                    "Cream butter and sugar until very creamy and fluffy, 3-4 minutes",
+                    "Add eggs and vanilla",
+                    "Add dry ingredients to wet and mix with hand mixer until almost combined",
+                    "Fold in chocolate if using",
+                    "Can fridge for up to 2 days for richer taste",
+                    "Scoop 4 tbsp pieces of dough (2\" between each cookie)",
+                    "Bake 12-14 minutes until edges are set but middle very soft"
+                ],
+                notes: "Optional: melt down and freeze marshmallow and put it in middle, or add mochi filling"
+            },
+            {
+                title: "Mochi for Cookie Stuffing",
+                category: "cookies",
+                icon: "🥟",
+                ingredients: [
+                    "80g glutinous rice flour (.35 cups)",
+                    "40g granulated sugar (3.2 tbsp or ⅕ cup)",
+                    "135 mL water (.56 cups)",
+                    "2 tsp cornstarch (for dusting)"
+                ],
+                directions: [
+                    "In small bowl stir rice flour, sugar, water until most lumps are gone",
+                    "Microwave 1 min, stir, microwave 1 min, stir, microwave 30 seconds",
+                    "Stir until sticky and bouncy (can use wet spoon to stir)",
+                    "Lightly flour surface with cornstarch, pat all sides of mochi with cornstarch",
+                    "Let cool and then break it up into 10 pieces",
+                    "Let cool completely before using"
+                ],
+                notes: "Can add ½ tsp matcha to the mochi"
+            },
+            {
+                title: "High Protein Bagels",
+                category: "breads",
+                icon: "🥯",
+                ingredients: [
+                    "1 cup flour (can mix with protein powder as long as stays one cup total)",
+                    "1 ½ tsp baking powder",
+                    "¼ tsp salt",
+                    "¾ cup greek yogurt",
+                    "milk or egg for washing",
+                    "toppings (sesame, poppy, etc)"
+                ],
+                directions: [
+                    "Preheat oven to 375°F and line sheet with parchment paper",
+                    "Whisk together flour, baking powder and salt",
+                    "Add in greek yogurt and stir until dough forms",
+                    "Dust surface with flour and knead it lightly until it's all combined",
+                    "Divide into 4 equal parts",
+                    "Roll it into a cylinder and connect the ends",
+                    "Place on baking sheet and put on egg wash",
+                    "Sprinkle with seasoning",
+                    "Bake 27-30 min or until golden brown"
+                ]
+            },
+            {
+                title: "Matcha Mochi Brownie",
+                category: "desserts",
+                icon: "🍵",
+                ingredients: [
+                    "1 cup mochiko flour",
+                    "¾ cup white sugar",
+                    "1 egg",
+                    "¾ cup coconut milk",
+                    "½ tsp vanilla extract",
+                    "1 tbsp matcha green tea powder",
+                    "2 tbsp butter melted"
+                ],
+                directions: [
+                    "Preheat oven to 350°F, prepare 4x8 loaf pan with parchment paper",
+                    "Mix all the dry ingredients",
+                    "Add the wet ingredients in and mix until well incorporated",
+                    "Pour into pan and bake for 35 min until toothpick comes out clean",
+                    "Allow cake to cool before cutting into squares"
+                ]
+            },
+            {
+                title: "Taiwanese Pineapple Cake",
+                category: "cakes",
+                icon: "🍍",
+                ingredients: [
+                    "Filling: 2 tbsp unsalted butter, 40 oz cans crushed pineapple, ¼ cup sugar, ½ cup maltose",
+                    "Crust: 1 cup room temp butter, 1 cup sugar, ½ tsp baking soda, 1 tsp kosher salt, ¼ cup sweetened condensed milk, 2 ½ cup flour, 1 beaten egg"
+                ],
+                directions: [
+                    "Drain the pineapple to get out as much liquid as possible",
+                    "In large skillet on medium heat, melt butter. Add pineapple, sugar and maltose until golden brown with no liquid (5-10 min)",
+                    "Preheat oven to 350°F and grease and line parchment paper in 9x9 metal pan",
+                    "Cream butter and sugar until light and fluffy",
+                    "Add sweetened milk, flour, salt, baking soda and mix until dough forms, then divide in half",
+                    "Press half the dough into the pan",
+                    "Spread pineapple filling over dough",
+                    "Put the other half of the dough on top",
+                    "Brush the top with beaten egg",
+                    "Bake 30-40 min until golden brown and toothpick comes out clean",
+                    "Let cool completely before cutting"
+                ],
+                notes: "If you don't have maltose you can use equal amount of corn syrup and leave out the sugar"
+            },
+            {
+                title: "Meringue Cookies with Mini Cookie Layer",
+                category: "meringues",
+                icon: "🍫",
+                ingredients: [
+                    "3 egg white",
+                    "1 cup sugar",
+                    "½ tsp salt",
+                    "1 tsp vanilla",
+                    "2 Tbsp cocoa powder",
+                    "1 cup chocolate chips"
+                ],
+                directions: [
+                    "Preheat oven to 275°F",
+                    "Beat eggs until frothy",
+                    "Add sugar super slowly",
+                    "Add salt and beat until peaks form, then add vanilla",
+                    "Beat for one second, then sift cocoa powder into bowl and add chocolate chips",
+                    "Fold in until incorporated",
+                    "Drop around 1 tbsp size clumps onto baking sheet covered in parchment paper",
+                    "Cook 25-40 min until firm on outside (usually around 35 min)",
+                    "Let them cool"
+                ]
+            },
+            {
+                title: "Financier",
+                category: "cakes",
+                icon: "🧈",
+                ingredients: [
+                    "½ cup unsalted butter",
+                    "90g powdered sugar",
+                    "60g granulated sugar",
+                    "125g almond flour",
+                    "45g all purpose flour",
+                    "pinch salt",
+                    "4 large egg white room temp",
+                    "2 tsp vanilla extract",
+                    "Optional: ¼ tsp almond, lemon or orange extract",
+                    "Optional: orange or lemon zest"
+                ],
+                directions: [
+                    "Place butter into saucepan and brown over medium heat for around 8 min, let cool to room temp",
+                    "Preheat oven to 350°F and grease wells of a mini muffin pan",
+                    "In large mixing bowl, sift the dry ingredients first then whisk both sugars, both flours and salt",
+                    "Add in the egg white, vanilla and brown butter and whisk until just combined",
+                    "Put batter into plastic wrap and chill for 1 hour to one week",
+                    "Divide batter into mini muffin tins so it's about ¾ full",
+                    "Bake for 15-20 min until edges are golden and toothpick comes out clean",
+                    "Let cool in pan for 10 min and then cool completely on a wire rack"
+                ],
+                notes: "Can keep in airtight container for up to a week. Optional extracts: almond, lemon or orange"
+            }
+        ];
 
+        const recipeGrid = document.getElementById('recipeGrid');
+        const searchBox = document.getElementById('searchBox');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const recipeDetails = document.getElementById('recipeDetails');
+        const closeBtn = document.getElementById('closeBtn');
+        const noResults = document.getElementById('noResults');
+
+        let currentFilter = 'all';
+
+        function displayRecipes(recipesToShow) {
+            recipeGrid.innerHTML = '';
+            
+            if (recipesToShow.length === 0) {
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            
+            recipesToShow.forEach((recipe, index) => {
+                const card = document.createElement('div');
+                card.className = 'recipe-card';
+                card.innerHTML = `
+                    <div class="recipe-image">${recipe.icon}</div>
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">${recipe.title}</h3>
+                        <span class="recipe-category">${recipe.category}</span>
+                    </div>
+                `;
+                card.addEventListener('click', () => showRecipeDetails(recipe));
+                recipeGrid.appendChild(card);
+            });
+        }
+
+        function showRecipeDetails(recipe) {
+            document.getElementById('modalTitle').textContent = recipe.title;
+            
+            let ingredientsHTML = '<h3>Ingredients</h3><ul>';
+            recipe.ingredients.forEach(ingredient => {
+                ingredientsHTML += `<li>${ingredient}</li>`;
+            });
+            ingredientsHTML += '</ul>';
+            
+            let directionsHTML = '<h3>Directions</h3><ol>';
+            recipe.directions.forEach(direction => {
+                directionsHTML += `<li>${direction}</li>`;
+            });
+            directionsHTML += '</ol>';
+            
+            let notesHTML = '';
+            if (recipe.notes) {
+                notesHTML = `<div class="note"><strong>Notes:</strong> ${recipe.notes}</div>`;
+            }
+            
+            document.getElementById('modalBody').innerHTML = ingredientsHTML + directionsHTML + notesHTML;
+            recipeDetails.classList.add('active');
+        }
+
+        closeBtn.addEventListener('click', () => {
+            recipeDetails.classList.remove('active');
+        });
+
+        recipeDetails.addEventListener('click', (e) => {
+            if (e.target === recipeDetails) {
+                recipeDetails.classList.remove('active');
+            }
+        });
+
+        searchBox.addEventListener('input', (e) => {
+            filterRecipes();
+        });
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                currentFilter = button.dataset.category;
+                filterRecipes();
+            });
+        });
+
+        function filterRecipes() {
+            const searchTerm = searchBox.value.toLowerCase();
+            
+            let filtered = recipes.filter(recipe => {
+                const matchesSearch = recipe.title.toLowerCase().includes(searchTerm) ||
+                                    recipe.ingredients.some(ing => ing.toLowerCase().includes(searchTerm));
+                const matchesCategory = currentFilter === 'all' || recipe.category === currentFilter;
+                
+                return matchesSearch && matchesCategory;
+            });
+            
+            displayRecipes(filtered);
+        }
+
+        displayRecipes(recipes);
+    </script>
+</body>
+</html>
