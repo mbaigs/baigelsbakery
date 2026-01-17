@@ -223,6 +223,13 @@
             margin-top: 0;
         }
 
+        .modal-body h4 {
+            color: #9080C0;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
         .modal-body ul {
             list-style-position: inside;
             margin-bottom: 1.5rem;
@@ -421,26 +428,26 @@
                 category: "misc desserts",
                 icon: "🍋",
                 ingredients: [
-        {
-            section: "Shortbread",
-            items: [
-                "¾ cup (170g) unsalted butter",
-                "2 cups (250g) all purpose flour",
-                "½ cup (110g) packed light brown sugar",
-                "½ tsp salt"
-            ]
-        },
-        {
-            section: "Filling",
-            items: [
-                "4 large eggs",
-                "1 ½ cup (300g) granulated sugar",
-                "¾ cup (180ml) fresh lemon juice",
-                "⅓ cup (42g) all purpose flour",
-                "3 tablespoon confectioners sugar (optional)"
-            ]
-        }
-    ],
+                    {
+                        section: "Shortbread",
+                        items: [
+                            "¾ cup (170g) unsalted butter",
+                            "2 cups (250g) all purpose flour",
+                            "½ cup (110g) packed light brown sugar",
+                            "½ tsp salt"
+                        ]
+                    },
+                    {
+                        section: "Filling",
+                        items: [
+                            "4 large eggs",
+                            "1 ½ cup (300g) granulated sugar",
+                            "¾ cup (180ml) fresh lemon juice",
+                            "⅓ cup (42g) all purpose flour",
+                            "3 tablespoon confectioners sugar (optional)"
+                        ]
+                    }
+                ],
                 directions: [
                     "Preheat oven to 350°F. Cut butter in ½ inch pieces",
                     "Food process butter, flour, brown sugar, and salt until begins to form small lumps",
@@ -459,32 +466,32 @@
                 category: "cakes",
                 icon: "🧁",
                 ingredients: [
-    {
-        section: "Cupcakes",
-        items: [
-            "½ cup (115g) unsalted butter, softened",
-            "1 cup (200g) granulated sugar",
-            "2 large eggs, room temperature",
-            "1 ½ tsp vanilla extract",
-            "1 ½ cups (190g) all-purpose flour",
-            "2 tsp baking powder",
-            "½ tsp salt",
-            "½ cup (120ml) whole milk",
-            "1 ½ tbsp lemon zest",
-            "⅓ cup (80ml) fresh lemon juice"
-        ]
-    },
-    {
-        section: "Frosting",
-        items: [
-            "2 cups (300g) berries",
-            "1 tbsp sugar",
-            "1 cup (225g) unsalted butter, room temperature",
-            "2–3 cups (250–375g) powdered sugar, sifted",
-            "1 tsp vanilla"
-        ]
-    }
-],
+                    {
+                        section: "Cupcakes",
+                        items: [
+                            "½ cup (115g) unsalted butter, softened",
+                            "1 cup (200g) granulated sugar",
+                            "2 large eggs, room temperature",
+                            "1 ½ tsp vanilla extract",
+                            "1 ½ cups (190g) all-purpose flour",
+                            "2 tsp baking powder",
+                            "½ tsp salt",
+                            "½ cup (120ml) whole milk",
+                            "1 ½ tbsp lemon zest",
+                            "⅓ cup (80ml) fresh lemon juice"
+                        ]
+                    },
+                    {
+                        section: "Frosting",
+                        items: [
+                            "2 cups (300g) berries",
+                            "1 tbsp sugar",
+                            "1 cup (225g) unsalted butter, room temperature",
+                            "2–3 cups (250–375g) powdered sugar, sifted",
+                            "1 tsp vanilla"
+                        ]
+                    }
+                ],
                 directions: [
                     "Preheat oven to 350°F. Line 12 cup muffin pan with cupcake liners",
                     "Beat butter and sugar together on medium high speed until creamed (around 2 min)",
@@ -518,7 +525,7 @@
                     "Whisk in the milk until completely combined",
                     "Add the flour mixture and whisk until just combined",
                     "Fill the liners with around 1tbsp of batter, they should be around two-thirds full",
-                     "Cover any remaining batter and refreigerate while first batch bakes if needed",
+                    "Cover any remaining batter and refrigerate while first batch bakes if needed",
                     "Bake for around 12 minutes, until tops are set and spring back when touched",
                     "Cool in the muffin pan for 5 minutes and then transfer to cooling rack to cool completely. Only frost once cupcakes are completely cool"
                 ],
@@ -530,7 +537,7 @@
                 icon: "🍫",
                 ingredients: [
                     "2 cup (473mL) heavy whipping cream",
-                    "¼ cup + 1 tbsp (39g) coacoa powder",
+                    "¼ cup + 1 tbsp (39g) cocoa powder",
                     "⅓ cup (40g) powdered sugar",
                     "1 tsp vanilla extract",
                     "pinch sea salt",
@@ -539,7 +546,7 @@
                 ],
                 directions: [
                     "Place medium size mixing bowl in the fridge to chill",
-                    "Sift in the coacoa powder, combine all ingredients into bowl",
+                    "Sift in the cocoa powder, combine all ingredients into bowl",
                     "Whisk with an electric mixer on medium-high for 4-5 min until stiff peaks start to form",
                     "Chill until ready to serve"
                 ],
@@ -699,7 +706,7 @@
             },
             {
                 title: "Mochi for Cookie Stuffing",
-                category: "cookies",
+                category: ["cookies", "misc desserts"],
                 icon: "🥟",
                 ingredients: [
                     "80g (.35 cups) glutinous rice flour",
@@ -767,8 +774,27 @@
                 category: "misc desserts",
                 icon: "🍍",
                 ingredients: [
-                    "Filling: 2 tbsp unsalted butter, 40 oz cans crushed pineapple, ¼ cup (50g) sugar, ½ cup (200g) maltose",
-                    "Crust: 1 cup (225g) room temp butter, 1 cup (200g) sugar, ½ tsp baking soda, 1 tsp kosher salt, ¼ cup (60ml) sweetened condensed milk, 2 ½ cup (312g) flour, 1 beaten egg"
+                    {
+                        section: "Filling",
+                        items: [
+                            "2 tbsp unsalted butter",
+                            "40 oz cans crushed pineapple",
+                            "¼ cup (50g) sugar",
+                            "½ cup (200g) maltose"
+                        ]
+                    },
+                    {
+                        section: "Crust",
+                        items: [
+                            "1 cup (225g) room temp butter",
+                            "1 cup (200g) sugar",
+                            "½ tsp baking soda",
+                            "1 tsp kosher salt",
+                            "¼ cup (60ml) sweetened condensed milk",
+                            "2 ½ cup (312g) flour",
+                            "1 beaten egg"
+                        ]
+                    }
                 ],
                 directions: [
                     "Drain the pineapple to get out as much liquid as possible",
@@ -861,11 +887,12 @@
             recipesToShow.forEach((recipe, index) => {
                 const card = document.createElement('div');
                 card.className = 'recipe-card';
+                const displayCategory = Array.isArray(recipe.category) ? recipe.category[0] : recipe.category;
                 card.innerHTML = `
                     <div class="recipe-image">${recipe.icon}</div>
                     <div class="recipe-content">
                         <h3 class="recipe-title">${recipe.title}</h3>
-                        <span class="recipe-category">${recipe.category}</span>
+                        <span class="recipe-category">${displayCategory}</span>
                     </div>
                 `;
                 card.addEventListener('click', () => showRecipeDetails(recipe));
@@ -876,11 +903,26 @@
         function showRecipeDetails(recipe) {
             document.getElementById('modalTitle').textContent = recipe.title;
             
-            let ingredientsHTML = '<h3>Ingredients</h3><ul>';
-            recipe.ingredients.forEach(ingredient => {
-                ingredientsHTML += `<li>${ingredient}</li>`;
-            });
-            ingredientsHTML += '</ul>';
+            let ingredientsHTML = '<h3>Ingredients</h3>';
+
+            // Check if ingredients have sections
+            if (recipe.ingredients.length > 0 && typeof recipe.ingredients[0] === 'object' && recipe.ingredients[0].section) {
+                // Sectioned ingredients
+                recipe.ingredients.forEach(section => {
+                    ingredientsHTML += `<h4>${section.section}</h4><ul>`;
+                    section.items.forEach(item => {
+                        ingredientsHTML += `<li>${item}</li>`;
+                    });
+                    ingredientsHTML += '</ul>';
+                });
+            } else {
+                // Simple ingredient list
+                ingredientsHTML += '<ul>';
+                recipe.ingredients.forEach(ingredient => {
+                    ingredientsHTML += `<li>${ingredient}</li>`;
+                });
+                ingredientsHTML += '</ul>';
+            }
             
             let directionsHTML = '<h3>Directions</h3><ol>';
             recipe.directions.forEach(direction => {
@@ -946,9 +988,19 @@
             const searchTerm = searchBox.value.toLowerCase();
             
             let filtered = recipes.filter(recipe => {
-                const matchesSearch = recipe.title.toLowerCase().includes(searchTerm) ||
-                                    recipe.ingredients.some(ing => ing.toLowerCase().includes(searchTerm));
-                const matchesCategory = currentFilter === 'all' || recipe.category === currentFilter;
+                // Handle both simple arrays and sectioned ingredients for search
+                let ingredientText = '';
+                if (recipe.ingredients.length > 0 && typeof recipe.ingredients[0] === 'object' && recipe.ingredients[0].section) {
+                    ingredientText = recipe.ingredients.flatMap(section => section.items).join(' ').toLowerCase();
+                } else {
+                    ingredientText = recipe.ingredients.join(' ').toLowerCase();
+                }
+                
+                const matchesSearch = recipe.title.toLowerCase().includes(searchTerm) || ingredientText.includes(searchTerm);
+                
+                // Handle both single category string and multiple category array
+                const matchesCategory = currentFilter === 'all' || 
+                                       (Array.isArray(recipe.category) ? recipe.category.includes(currentFilter) : recipe.category === currentFilter);
                 
                 return matchesSearch && matchesCategory;
             });
