@@ -605,8 +605,8 @@
                 ]
             },
             {
-                title: "Lava Cakes",
-                category: "misc desserts",
+                title: "Chocolate Lava Cakes",
+                category: ["misc desserts", "cakes"],
                 icon: "🌋",
                 ingredients: [
                     "1/4 cup (50g) granulated sugar",
@@ -771,7 +771,7 @@
             },
             {
                 title: "Taiwanese Pineapple Cake",
-                category: "misc desserts",
+                category: ["misc desserts", "cakes"],
                 icon: "🍍",
                 ingredients: [
                     {
@@ -837,7 +837,7 @@
             },
             {
                 title: "Financier",
-                category: "cookies",
+                category: ["cookies", "misc desserts"],
                 icon: "🧈",
                 ingredients: [
                     "½ cup (115g) unsalted butter",
@@ -887,12 +887,22 @@
             recipesToShow.forEach((recipe, index) => {
                 const card = document.createElement('div');
                 card.className = 'recipe-card';
-                const displayCategory = Array.isArray(recipe.category) ? recipe.category[0] : recipe.category;
+                
+                // Create category badges - multiple if array, single if string
+                let categoryHTML = '';
+                if (Array.isArray(recipe.category)) {
+                    recipe.category.forEach(cat => {
+                        categoryHTML += `<span class="recipe-category">${cat}</span> `;
+                    });
+                } else {
+                    categoryHTML = `<span class="recipe-category">${recipe.category}</span>`;
+                }
+                
                 card.innerHTML = `
                     <div class="recipe-image">${recipe.icon}</div>
                     <div class="recipe-content">
                         <h3 class="recipe-title">${recipe.title}</h3>
-                        <span class="recipe-category">${displayCategory}</span>
+                        ${categoryHTML}
                     </div>
                 `;
                 card.addEventListener('click', () => showRecipeDetails(recipe));
