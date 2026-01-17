@@ -833,6 +833,7 @@
                 title: "Meringue Cookies with Mini Cookie Layer",
                 category: "cookies",
                 icon: "🍫",
+                image: "images/meringue-cookie-with-cookie-layer.jpg",
                 ingredients: [
                     "3 egg white",
                     "1 cup (200g) sugar",
@@ -917,7 +918,9 @@
                 }
                 
                 card.innerHTML = `
-                    <div class="recipe-image">${recipe.icon}</div>
+                    <div class="recipe-image" style="background-image: url('${recipe.image || ''}'); background-size: cover; background-position: center;">
+                        ${!recipe.image ? recipe.icon : ''}
+                    </div>
                     <div class="recipe-content">
                         <h3 class="recipe-title">${recipe.title}</h3>
                         <div class="category-container">${categoryHTML}</div>
