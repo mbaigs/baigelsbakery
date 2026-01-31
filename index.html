@@ -131,16 +131,16 @@
             flex-shrink: 0;
         }
 
-       .recipe-content {
+        .recipe-content {
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
-            min-height: 170px;
+            min-height: 120px;
             position: relative;
         }
 
-       .recipe-title {
+        .recipe-title {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: #2d3748;
@@ -526,7 +526,6 @@
                 title: "Mini Vanilla Cupcakes",
                 category: "cakes",
                 icon: "🧁",
-                image: "images/mini-vanilla-cupcake.jpg",
                 ingredients: [
                     "¾ cup (90g) cake flour",
                     "¾ tsp baking powder",
@@ -624,8 +623,8 @@
                 ]
             },
             {
-                title: "Chocolate Lava Cakes",
-                category: ["misc desserts", "cakes"],
+                title: "Lava Cakes",
+                category: "misc desserts",
                 icon: "🌋",
                 ingredients: [
                     "1/4 cup (50g) granulated sugar",
@@ -790,7 +789,7 @@
             },
             {
                 title: "Taiwanese Pineapple Cake",
-                category: ["misc desserts", "cakes"],
+                category: "misc desserts",
                 icon: "🍍",
                 ingredients: [
                     {
@@ -834,7 +833,6 @@
                 title: "Meringue Cookies with Mini Cookie Layer",
                 category: "cookies",
                 icon: "🍫",
-                image: "images/meringue-cookie-with-cookie-layer.jpg",
                 ingredients: [
                     "3 egg white",
                     "1 cup (200g) sugar",
@@ -857,7 +855,7 @@
             },
             {
                 title: "Financier",
-                category: ["cookies", "misc desserts"],
+                category: "cookies",
                 icon: "🧈",
                 ingredients: [
                     "½ cup (115g) unsalted butter",
@@ -919,9 +917,7 @@
                 }
                 
                 card.innerHTML = `
-                    <div class="recipe-image" style="background-image: url('${recipe.image || ''}'); background-size: cover; background-position: center;">
-                        ${!recipe.image ? recipe.icon : ''}
-                    </div>
+                    <div class="recipe-image">${recipe.icon}</div>
                     <div class="recipe-content">
                         <h3 class="recipe-title">${recipe.title}</h3>
                         <div class="category-container">${categoryHTML}</div>
