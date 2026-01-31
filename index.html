@@ -131,16 +131,16 @@
             flex-shrink: 0;
         }
 
-        .recipe-content {
+       .recipe-content {
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
-            min-height: 210px;
+            min-height: 170px;
             position: relative;
         }
 
-        .recipe-title {
+       .recipe-title {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: #2d3748;
@@ -526,6 +526,7 @@
                 title: "Mini Vanilla Cupcakes",
                 category: "cakes",
                 icon: "🧁",
+                image: "images/mini-vanilla-cupcake.jpg",
                 ingredients: [
                     "¾ cup (90g) cake flour",
                     "¾ tsp baking powder",
@@ -625,8 +626,8 @@
                 ]
             },
             {
-                title: "Lava Cakes",
-                category: "misc desserts",
+                title: "Chocolate Lava Cakes",
+                category: ["misc desserts", "cakes"],
                 icon: "🌋",
                 ingredients: [
                     "1/4 cup (50g) granulated sugar",
@@ -671,6 +672,30 @@
                     "Bake for 8-10 minutes until cookies look dry"
                 ]
             },
+             {
+                title: "Lime Curd",
+                category: "misc desserts",
+                icon: "🍋",
+                ingredients: [
+                    "50g (¼ cup) granulated sugar",
+                    "zest of 2 limes", 
+                    "2 large eggs", 
+                    "60g (¼ cup) fresh squeezed lime juice (~2 limes)", 
+                    "pinch fine sea salt", 
+                    "⅛ cup butter cold"
+                ],
+                directions: [
+                    "Slice the butter into small cubes and place it in a separate bowl with a fine mesh sieve over it", 
+                    "Place sugar in a small pot and zest the limes over the sugar. Rub the sugar and lime zest between your fingers for a few min until juices are released and it’s the texture of wet sand", 
+                    "Crack eggs over the sugar and add pinch of salt, whisk until combined", 
+                    "Pour lime juice and whisk, set over medium low heat", 
+                    "Cook whistling frequently until curd thickens and covers the back of a spoon", 
+                    "Pour curd through sieve into the bowl of butter and press through and get all the curd you can", 
+                    "Stir until butter is melted and curd is smooth", 
+                    "Cover with plastic on top to prevent a film and store in fridge in airtight container for up to 2 weeks", 
+                    "Makes about ½ cup curd"
+                ]
+            },
             {
                 title: "Pavlova",
                 category: "misc desserts",
@@ -693,30 +718,6 @@
                     "Put mixture in oven and turn it down to 250°F immediately",
                     "Bake around 1.5 hours until crispy on outside",
                     "Once done can decorate and stuff with various custards and fruits"
-                ]
-            },
-            {
-                title: "Lime Curd",
-                category: "misc desserts",
-                icon: "🍋",
-                ingredients: [
-                    "50g (¼ cup) granulated sugar",
-                    "zest of 2 limes", 
-                    "2 large eggs", 
-                    "60g (¼ cup) fresh squeezed lime juice (~2 limes)", 
-                    "pinch fine sea salt", 
-                    "⅛ cup butter cold"
-                ],
-                directions: [
-                    "Slice the butter into small cubes and place it in a separate bowl with a fine mesh sieve over it", 
-                    "Place sugar in a small pot and zest the limes over the sugar. Rub the sugar and lime zest between your fingers for a few min until juices are released and it’s the texture of wet sand", 
-                    "Crack eggs over the sugar and add pinch of salt, whisk until combined", 
-                    "Pour lime juice and whisk, set over medium low heat", 
-                    "Cook whistling frequently until curd thickens and covers the back of a spoon", 
-                    "Pour curd through sieve into the bowl of butter and press through and get all the curd you can", 
-                    "Stir until butter is melted and curd is smooth", 
-                    "Cover with plastic on top to prevent a film and store in fridge in airtight container for up to 2 weeks", 
-                    "Makes about ½ cup curd"
                 ]
             },
             {
@@ -815,7 +816,7 @@
             },
             {
                 title: "Taiwanese Pineapple Cake",
-                category: "misc desserts",
+                category: ["misc desserts", "cakes"],
                 icon: "🍍",
                 ingredients: [
                     {
@@ -859,6 +860,7 @@
                 title: "Meringue Cookies with Mini Cookie Layer",
                 category: "cookies",
                 icon: "🍫",
+                image: "images/meringue-cookie-with-cookie-layer.jpg",
                 ingredients: [
                     "3 egg white",
                     "1 cup (200g) sugar",
@@ -914,7 +916,7 @@
             },
             {
                 title: "Financier",
-                category: "cookies",
+                category: ["cookies", "misc desserts"],
                 icon: "🧈",
                 ingredients: [
                     "½ cup (115g) unsalted butter",
@@ -976,7 +978,9 @@
                 }
                 
                 card.innerHTML = `
-                    <div class="recipe-image">${recipe.icon}</div>
+                    <div class="recipe-image" style="background-image: url('${recipe.image || ''}'); background-size: cover; background-position: center;">
+                        ${!recipe.image ? recipe.icon : ''}
+                    </div>
                     <div class="recipe-content">
                         <h3 class="recipe-title">${recipe.title}</h3>
                         <div class="category-container">${categoryHTML}</div>
