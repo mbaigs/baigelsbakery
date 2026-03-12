@@ -1073,8 +1073,7 @@
                 }
                 
                 card.innerHTML = `
-                    <div class="recipe-image" style="background-image: url('${recipe.image || ''}'); background-size: cover; background-position: center;">
-                        ${!recipe.image ? recipe.icon : ''}
+                    <div class="recipe-image" style="background-image: url('${recipe.image || ''}'); background-size: cover; background-position: ${recipe.imagePosition || 'center'};">                        ${!recipe.image ? recipe.icon : ''}
                     </div>
                     <div class="recipe-content">
                         <h3 class="recipe-title">${recipe.title}</h3>
